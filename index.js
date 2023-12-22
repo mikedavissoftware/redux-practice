@@ -1,5 +1,5 @@
-const redux = require('redux') // would be 'import' in react
-const createStore = redux.createStore
+const redux = require('redux') // import redux library - would be 'import' in react
+const createStore = redux.createStore // assign createStore action (default in redux) to variable, for creating store later
 
 const BUY_CAKE = "BUY_CAKE" // This avoids spelling mistakes, so it is good practice
 
@@ -27,4 +27,10 @@ const reducer = (state = initialState, action) => {
   }
 }
 
-const store = createStore(reducer)
+const store = createStore(reducer) // create the redux store, passing the reducer function as a parameter
+console.log("Initial state", store.getState()) // prove access to state (using getState) by logging initial state before actions have been committed
+const unsubscribe = store.subscribe(() => console.log("Updated state", store.getState())) // register listener with callback action, as well as assigning that to variable to be called at the end, to terminate subscription listeners
+store.dispatch(buyCake()) // dispatch buyCake action 3x
+store.dispatch(buyCake())
+store.dispatch(buyCake())
+unsubscribe() // terminate subscription listeners
